@@ -1,0 +1,26 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    background: #000;
+    min-height: 100vh;
+    user-select: none;
+}
+
+.title {
+    color: #fff;
+}
+
+.jsLogo {
+    padding: 10px 5px 0 10px;
+    color: #000;
+    background-color: #ffff00;
+}
