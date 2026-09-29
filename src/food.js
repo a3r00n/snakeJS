@@ -4,13 +4,15 @@ export default class Food {
     #size = 20;
     #parentEl;
     #ctx;
+    #borderRadius;
 
-    constructor(parentEl, { x=undefined, y=undefined}={}) {
+    constructor({ parentEl=undefined, x=undefined, y=undefined, borderRadius=0 }) {
         if (!parentEl || !(parentEl instanceof HTMLCanvasElement))
             throw new Error();
         this.#parentEl = parentEl;
         this.#ctx = parentEl.getContext("2d");
         this.setPosition({ x:x, y:y });
+        this.#borderRadius = borderRadius;
     }
 
     getPosition() { return { x: this.#x, y: this.#y }; }
@@ -51,7 +53,7 @@ export default class Food {
     render() {
         this.#ctx.beginPath();
         this.#ctx.fillStyle = "#f01d1d";
-        this.#ctx.fillRect(this.#x, this.#y, this.#size, this.#size)
+        this.#ctx.roundRect(this.#x, this.#y, this.#size, this.#size, this.#borderRadius);
         this.#ctx.fill();
     }
 }

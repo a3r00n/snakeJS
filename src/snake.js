@@ -6,22 +6,37 @@ export default class Snake {
     #prevKey;
     #body = [];
     #bodySize = 20;
+    #borderRadius;
 
-    constructor({ canvas, x=undefined, y=undefined }) {
+    constructor({ canvas, x=undefined, y=undefined, borderRadius=0 }) {
         if (!canvas || !(canvas instanceof HTMLCanvasElement))
             throw new Error();
         this.#canvas = canvas;
         this.#ctx = canvas.getContext("2d");
+        this.#borderRadius = borderRadius;
         this.#body.push(new SnakeBody({
             canvas: canvas,
             x:x,
             y:y,
             color:"#28f128",
             size: this.#bodySize,
+            borderRadius: this.#borderRadius,
         }));
     }
 
     update() { this.#updatePositions(); }
+
+    reset() {
+        this.#body = this.#body.slice(0, 1);
+        const head = this.#body[0];
+        head.updatePosition({
+            x: (this.#canvas.width - this.#bodySize) / 2,
+            y: (this.#canvas.height - this.#bodySize) / 2,
+        });
+        this.#dx = 0;
+        this.#dy = 0;
+        this.#prevKey = undefined;
+    }
 
     #updatePositions() {
         for (let i = this.#body.length - 1;
@@ -46,6 +61,7 @@ export default class Snake {
             canvas: this.#canvas,
             ...this.#getHeadPosition(),
             size: this.#bodySize,
+            borderRadius: this.#borderRadius,
         }));
     }
 
@@ -91,13 +107,7 @@ export default class Snake {
         return hx === x && hy === y;
     }
 
-    render() {
-        this.#ctx.beginPath();
-        this.#body.forEach(body => {
-            body.render();
-        });
-        this.#ctx.fill();
-    }
+    render() { this.#body.forEach(body => body.render()); }
 }
 
 class SnakeBody {
@@ -106,6 +116,7 @@ class SnakeBody {
     #size;
     #ctx;
     #color;
+    #borderRadius;
 
     constructor({
         canvas=undefined,
@@ -113,6 +124,7 @@ class SnakeBody {
         y=undefined,
         color="#158715",
         size=20,
+        borderRadius=0,
     }) {
         if (!canvas || !(canvas instanceof HTMLCanvasElement))
             throw new Error();
@@ -121,6 +133,7 @@ class SnakeBody {
         this.#x = x ?? (canvas.width - this.#size) / 2;
         this.#y = y ?? (canvas.height - this.#size) / 2;
         this.#color = color;
+        this.#borderRadius = borderRadius;
     }
 
     getPosition() {
@@ -133,7 +146,15 @@ class SnakeBody {
     }
 
     render() {
+        this.#ctx.beginPath();
         this.#ctx.fillStyle = this.#color;
-        this.#ctx.fillRect(this.#x, this.#y, this.#size, this.#size);
+        this.#ctx.roundRect(
+            this.#x,
+            this.#y,
+            this.#size,
+            this.#size,
+            this.#borderRadius
+        );
+        this.#ctx.fill();
     }
 }

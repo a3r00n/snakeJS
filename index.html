@@ -10,13 +10,26 @@
 <body>
     <h2 class="title">Snake <span class="jsLogo">JS</span></h2>
     <canvas id="gameContainer"></canvas>
+    <div class="scores">
+        <span id="currentScore"></span>
+        <span id="highScore"></span>
+    </div>
+    <div id="gameOver" class="gameOver">GAME OVER!!!</div>
     <script type="module">
         import Game from "./src/game.js";
         document.addEventListener("DOMContentLoaded", async () => {
             const gameContainer = document.getElementById("gameContainer");
+            const currentScoreContainer = document.getElementById("currentScore");
+            const highScoreContainer = document.getElementById("highScore");
+            const gameOverContainer = document.getElementById("gameOver");
             for (const [key, val] of Object.entries({ width: 700, height: 500 }))
                 gameContainer[key] = val;
-            const game = new Game(gameContainer);
+            const game = new Game(
+                gameContainer,
+                currentScoreContainer,
+                highScoreContainer,
+                gameOverContainer,
+            );
             requestAnimationFrame(game.gameLoop);
         });
     </script>
