@@ -6,7 +6,7 @@ A classic Snake game built from scratch with vanilla JavaScript, HTML, and CSS.
 
 ## Preview
 
-![Snake JS Preview](./assets/preview-v0.1.0.png)
+![Snake JS Preview](./assets/preview-v0.2.0.png)
 
 ## Features
 
@@ -15,6 +15,8 @@ A classic Snake game built from scratch with vanilla JavaScript, HTML, and CSS.
 - Snake growth
 - Wall collision
 - Self-collision
+- Game-over screen
+- Restart without refreshing the page
 - Canvas-based rendering
 
 ## Tech Stack
