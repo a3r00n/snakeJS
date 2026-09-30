@@ -28,9 +28,16 @@ export default class Game {
         this.#snake = new Snake({ canvas: canvas, borderRadius: this.#borderRadius });
         this.#food = new Food({ parentEl: canvas, borderRadius: this.#borderRadius });
 
-        document.addEventListener("keydown", (event) =>
-            this.#snake.setDirection(event.key)
-        );
+        document.addEventListener("keydown", (event) => {
+            const k = event.key;
+            const direction = ["w", "ArrowUp"].includes(k)
+                ? "up" : ["s", "ArrowDown"].includes(k)
+                    ? "down" : ["a", "ArrowLeft"].includes(k)
+                        ? "left" : ["d", "ArrowRight"].includes(k)
+                            ? "right" : undefined;
+            if (direction)
+                this.#snake.setDirection(direction);
+        });
 
         document.addEventListener("click", () => {
             if (!this.#gameOverPopup.classList.contains("active"))
@@ -38,6 +45,9 @@ export default class Game {
             this.#gameOverPopup.classList.remove("active");
             this.#currentScore = 0;
             this.#snake.reset();
+            this.#food.setPosition({
+                ignorePos: this.#snake.getAllPositions(),
+            });
             this.#animationId = requestAnimationFrame(this.gameLoop);
         });
 
@@ -48,6 +58,7 @@ export default class Game {
         cancelAnimationFrame(this.#animationId);
         this.#gameOverPopup.classList.add("active");
     }
+
     gameLoop(time) {
         if (time - this.#lastMove >= this.#moveDelay) {
             if (this.#snake.checkBodyCollision()
@@ -57,7 +68,9 @@ export default class Game {
                 ...this.#food.getPosition()
             })) {
                 this.#snake.grow();
-                this.#food.setPosition({});
+                this.#food.setPosition({
+                    ignorePos: this.#snake.getAllPositions(),
+                });
                 this.#currentScore++;
                 if (this.#currentScore > this.#highScore)
                     this.#highScore = this.#currentScore;
@@ -68,8 +81,8 @@ export default class Game {
         this.#ctx.clearRect(
             0, 0, this.#canvas.width, this.#canvas.height
         );
-        this.#snake.render();
         this.#food.render();
+        this.#snake.render();
         this.#currentScoreEl.textContent = `Current Score: ${this.#currentScore}`;
         this.#highScoreEl.textContent = `High Score: ${this.#highScore}`;
         this.#animationId = requestAnimationFrame(this.gameLoop);

@@ -2,9 +2,12 @@ export default class Food {
     #x;
     #y;
     #size = 20;
+    #margin = 5;
     #parentEl;
     #ctx;
     #borderRadius;
+    #animationSpeed = 0.004;
+    #animationAmount = 2;
 
     constructor({ parentEl=undefined, x=undefined, y=undefined, borderRadius=0 }) {
         if (!parentEl || !(parentEl instanceof HTMLCanvasElement))
@@ -20,7 +23,7 @@ export default class Food {
     setPosition({
         x=undefined,
         y=undefined,
-        ignorePos={ix:-1, iy:-1}
+        ignorePos=[[-1, -1],],
     }) {
         do {
             this.#x = x ?? this.#randomNum({
@@ -31,7 +34,9 @@ export default class Food {
                 min: 0,
                 max: this.#parentEl.height - this.#size,
             }, this.#size);
-        } while (this.#x === ignorePos.ix && this.#y === ignorePos.iy);
+        } while (ignorePos.some(
+            ([x, y]) => x === this.#x && y === this.#y
+        ));
     }
 
     #randomNum({
@@ -51,9 +56,21 @@ export default class Food {
     }
 
     render() {
+        const time = performance.now();
+        const breathing = Math.sin(time * this.#animationSpeed);
+        const animateSize =
+            this.#size - this.#margin + breathing * this.#animationAmount;
+        const offSet = (this.#size - animateSize) / 2;
+        const brightness = 45 + breathing * 15;
         this.#ctx.beginPath();
-        this.#ctx.fillStyle = "#f01d1d";
-        this.#ctx.roundRect(this.#x, this.#y, this.#size, this.#size, this.#borderRadius);
+        this.#ctx.fillStyle = `hsl(0, 85%, ${brightness}%)`;
+        this.#ctx.roundRect(
+            this.#x + offSet,
+            this.#y + offSet,
+            animateSize,
+            animateSize,
+            this.#borderRadius,
+        );
         this.#ctx.fill();
     }
 }

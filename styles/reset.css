@@ -10,14 +10,17 @@ body {
     justify-content: center;
     align-items: center;
     gap: 15px;
-
     min-height: 100vh;
-
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     color: #fff;
-    background: #505050;
-
+    background: linear-gradient(
+        to bottom,
+        #67c7f5 0%,
+        #a9e4ff 70%,
+        #d8f4ff 100%
+    );
     user-select: none;
+    overflow: hidden;
 }
 
 .title {
@@ -35,16 +38,6 @@ body {
     font-weight: bold;
     text-shadow: none;
     box-shadow: 0 0 10px #000;
-}
-
-#gameContainer {
-    display: block;
-    background: #1d1d1d;
-    border: 2px dashed #555;
-    border-radius: 10px;
-    box-shadow:
-        0 0 0 1px #111,
-        0 10px 30px #000;
 }
 
 .scores {

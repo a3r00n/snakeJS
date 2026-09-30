@@ -56,6 +56,12 @@ export default class Snake {
 
     #getHeadPosition() { return {...this.#body[0].getPosition()}; }
 
+    getAllPositions() {
+        return this.#body.map(body => [
+            ...Object.values(body.getPosition())
+        ]);
+    }
+
     grow() {
         this.#body.push(new SnakeBody({
             canvas: this.#canvas,
@@ -65,20 +71,17 @@ export default class Snake {
         }));
     }
 
-    setDirection(ArrowKey='') {
-        if (!ArrowKey || !ArrowKey.includes("Arrow"))
-            throw new Error();
-        const key = ArrowKey.split("Arrow")[1];
-        if (["Up", "Down"].includes(this.#prevKey)
-            && ["Up", "Down"].includes(key)
-            || ["Left", "Right"].includes(this.#prevKey)
-            && ["Left", "Right"].includes(key))
+    setDirection(direction) {
+        if (["up", "down"].includes(this.#prevKey)
+            && ["up", "down"].includes(direction)
+            || ["left", "right"].includes(this.#prevKey)
+            && ["left", "right"].includes(direction))
             return;
-        this.#dx = ["Left", "Right"].includes(key)
-            ? key === "Left" ? -1 : 1 : 0;
-        this.#dy = ["Up", "Down"].includes(key)
-            ? key === "Up" ? -1 : 1 : 0;
-        this.#prevKey = key;
+        this.#dx = ["left", "right"].includes(direction)
+            ? direction === "left" ? -1 : 1 : 0;
+        this.#dy = ["up", "down"].includes(direction)
+            ? direction === "up" ? -1 : 1 : 0;
+        this.#prevKey = direction;
     }
 
     checkBodyCollision() {
@@ -114,6 +117,7 @@ class SnakeBody {
     #x;
     #y;
     #size;
+    #margin = 2;
     #ctx;
     #color;
     #borderRadius;
@@ -151,8 +155,8 @@ class SnakeBody {
         this.#ctx.roundRect(
             this.#x,
             this.#y,
-            this.#size,
-            this.#size,
+            this.#size - this.#margin,
+            this.#size - this.#margin,
             this.#borderRadius
         );
         this.#ctx.fill();
