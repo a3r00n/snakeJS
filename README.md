@@ -6,11 +6,12 @@ A classic Snake game built from scratch with vanilla JavaScript, HTML, and CSS.
 
 ## Preview
 
-![Snake JS Preview](./assets/preview-v0.2.1.png)
+![Snake JS Preview](./assets/preview-v0.3.0.png)
 
 ## Features
 
-- Snake movement with arrow keys
+- Snake movement with arrow keys and WASD
+- Frame-based direction input
 - Food spawning
 - Snake growth
 - Wall collision
@@ -18,6 +19,7 @@ A classic Snake game built from scratch with vanilla JavaScript, HTML, and CSS.
 - Game-over screen
 - Restart without refreshing the page
 - Canvas-based rendering
+- GitHub info tooltip
 
 ## Tech Stack
 
