@@ -13,12 +13,10 @@ body {
     min-height: 100vh;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     color: #fff;
-    background: linear-gradient(
-        to bottom,
-        #67c7f5 0%,
-        #a9e4ff 70%,
-        #d8f4ff 100%
-    );
+    background: linear-gradient(to bottom,
+            #67c7f5 0%,
+            #a9e4ff 70%,
+            #d8f4ff 100%);
     user-select: none;
     overflow: hidden;
 }
@@ -85,4 +83,74 @@ body {
 
 .gameOver.active {
     visibility: visible;
+}
+
+.info {
+    position: fixed;
+    bottom: 15px;
+    right: 15px;
+}
+
+.infoButton {
+    width: 50px;
+    height: 50px;
+    border: 2px solid #1d1d1d;
+    border-radius: 50%;
+    background: #1d1d1d;
+    color: #fff;
+    font-size: 22px;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.35);
+}
+
+.tooltip {
+    position: absolute;
+    right: 62px;
+    top: 50%;
+    transform: translateY(-50%) translateX(8px);
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    padding: 10px 14px;
+    min-width: 150px;
+    background: #1d1d1d;
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+    opacity: 0;
+    visibility: hidden;
+    transition:
+        opacity 0.2s ease,
+        transform 0.2s ease;
+}
+
+.tooltip::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 100%;
+    transform: translateY(-50%);
+    border: 7px solid transparent;
+    border-left-color: #1d1d1d;
+}
+
+.tooltip span {
+    color: #fff;
+    font-size: 13px;
+}
+
+.tooltip a {
+    color: #ffff00;
+    font-size: 12px;
+    text-decoration: none;
+}
+
+.tooltip a:hover {
+    text-decoration: underline;
+}
+
+.info:hover .tooltip {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(-50%) translateX(0);
 }

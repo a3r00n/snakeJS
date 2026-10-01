@@ -15,6 +15,7 @@ export default class Game {
     #animationId;
     #currentScore = 0;
     #highScore = 0;
+    #waiting = false;
 
     constructor(canvas, currrentScoreContainer, highScoreContainer, gameOverPopup) {
         if (!canvas || !(canvas instanceof HTMLCanvasElement)
@@ -29,14 +30,20 @@ export default class Game {
         this.#food = new Food({ parentEl: canvas, borderRadius: this.#borderRadius });
 
         document.addEventListener("keydown", (event) => {
+            if (this.#waiting) return;
             const k = event.key;
             const direction = ["w", "ArrowUp"].includes(k)
                 ? "up" : ["s", "ArrowDown"].includes(k)
                     ? "down" : ["a", "ArrowLeft"].includes(k)
                         ? "left" : ["d", "ArrowRight"].includes(k)
                             ? "right" : undefined;
-            if (direction)
+            if (direction) {
                 this.#snake.setDirection(direction);
+                this.#waiting = true;
+                requestAnimationFrame(() => {
+                    this.#waiting = false;
+                });
+            }
         });
 
         document.addEventListener("click", () => {
