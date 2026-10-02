@@ -16,6 +16,7 @@ export default class Game {
     #currentScore = 0;
     #highScore = 0;
     #waiting = false;
+    #gridSize = 20;
 
     constructor(canvas, currrentScoreContainer, highScoreContainer, gameOverPopup) {
         if (!canvas || !(canvas instanceof HTMLCanvasElement)
@@ -66,6 +67,25 @@ export default class Game {
         this.#gameOverPopup.classList.add("active");
     }
 
+    #renderGrid() {
+        this.#ctx.strokeStyle = "#122126";
+        this.#ctx.lineWidth = 1;
+
+        for (let x = 0; x <= this.#canvas.width; x += this.#gridSize) {
+            this.#ctx.beginPath();
+            this.#ctx.moveTo(x, 0);
+            this.#ctx.lineTo(x, this.#canvas.height);
+            this.#ctx.stroke();
+        }
+
+        for (let y = 0; y <= this.#canvas.height; y += this.#gridSize) {
+            this.#ctx.beginPath();
+            this.#ctx.moveTo(0, y);
+            this.#ctx.lineTo(this.#canvas.width, y);
+            this.#ctx.stroke();
+        }
+    }
+
     gameLoop(time) {
         if (time - this.#lastMove >= this.#moveDelay) {
             if (this.#snake.checkBodyCollision()
@@ -88,10 +108,11 @@ export default class Game {
         this.#ctx.clearRect(
             0, 0, this.#canvas.width, this.#canvas.height
         );
+        this.#renderGrid();
         this.#food.render();
         this.#snake.render();
-        this.#currentScoreEl.textContent = `Current Score: ${this.#currentScore}`;
-        this.#highScoreEl.textContent = `High Score: ${this.#highScore}`;
+        this.#currentScoreEl.textContent = this.#currentScore;
+        this.#highScoreEl.textContent = this.#highScore;
         this.#animationId = requestAnimationFrame(this.gameLoop);
     }
 }

@@ -1,0 +1,62 @@
+.githubLink {
+    width: 100%;
+}
+
+.githubLink a {
+    width: 100%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+
+    padding: 11px 14px;
+
+    background: #101f26;
+    border: 1px solid #2f373a;
+    border-radius: 9px;
+
+    color: #dce4e6;
+    text-decoration: none;
+
+    font-size: 0.8rem;
+    font-weight: 600;
+
+    transition:
+        background 0.2s ease,
+        border-color 0.2s ease,
+        color 0.2s ease,
+        transform 0.2s ease;
+}
+
+.githubIcon {
+    width: 18px;
+    height: 18px;
+}
+
+.externalIcon {
+    width: 14px;
+    height: 14px;
+
+    margin-left: auto;
+
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+
+    color: #7f8d92;
+}
+
+.githubLink a:hover {
+    background: #15262d;
+    border-color: #32F05A;
+    color: #32F05A;
+
+    transform: translateY(-1px);
+}
+
+.githubLink a:hover .externalIcon {
+    color: #32F05A;
+}

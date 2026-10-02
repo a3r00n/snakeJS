@@ -4,26 +4,124 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Snake JS</title>
-    <link rel="stylesheet" href="styles/canvas.css">
+    <link rel="stylesheet" href="styles/github-link.css">
+    <link rel="stylesheet" href="styles/header.css">
+    <link rel="stylesheet" href="styles/main.css">
     <link rel="stylesheet" href="styles/reset.css">
 </head>
 <body>
-    <h2 class="title">Snake <span class="jsLogo">JS</span></h2>
-    <canvas id="gameContainer"></canvas>
-    <div class="scores">
-        <span id="currentScore"></span>
-        <span id="highScore"></span>
-    </div>
-    <div id="gameOver" class="gameOver">GAME OVER!!!</div>
-    <div class="info">
-        <button class="infoButton">?</button>
-        <div class="tooltip">
-            <span>Made by a3r00n</span>
-            <a href="https://github.com/a3r00n/snakeJS" target="_blank">
-                View on GitHub
-            </a>
+    <header class="header">
+        <div class="snake-decoration">
+            <span></span><span></span>
+            <span></span><span></span>
         </div>
-    </div>
+        <h1 class="title">
+            Snake <span class="jsLogo">JS</span>
+        </h1>
+        <div class="snake-decoration">
+            <span></span><span></span>
+            <span></span><span></span>
+        </div>
+    </header>
+    <main>
+        <section>
+            <div id="scoreSection">
+                <div class="score current">
+                    <h3>Current Score</h3>
+                    <span id="currentScore"></span>
+                </div>
+                <div class="score high">
+                    <h3>High Score</h3>
+                    <span id="highScore"></span>
+                </div>
+            </div>
+            <div id="controlSection">
+                <h3>Controls</h3>
+                <div class="control arrow">
+                    <div class="left">
+                        <span>&uarr;</span>
+                        <span>&larr;</span>
+                        <span>&darr;</span>
+                        <span>&rarr;</span>
+                    </div>
+                    <div class="right">
+                        <p>Move</p>
+                        <span>(Arrow Keys)</span>
+                    </div>
+                </div>
+                <div class="control wwasd">
+                    <div class="left">
+                        <span>W</span>
+                        <span>A</span>
+                        <span>S</span>
+                        <span>D</span>
+                    </div>
+                    <div class="right">
+                        <p>Move</p>
+                        <span>(WASD)</span>
+                    </div>
+                </div>
+            </div>
+            <div class="githubLink">
+                <a
+                    href="https://github.com/a3r00n/snakeJS"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    <svg class="githubIcon" viewBox="0 0 24 24" aria-hidden="true">
+                        <path fill="currentColor"
+                            d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.58.11.79-.25.79-.56
+                            0-.28-.01-1.02-.02-2-3.2.7-3.88-1.54-3.88-1.54-.53-1.34-1.28-1.7-1.28-1.7
+                            -1.05-.72.08-.71.08-.71 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.69 1.26
+                            3.35.96.1-.75.4-1.26.73-1.55-2.55-.29-5.23-1.28-5.23-5.69 0-1.26.45-2.29
+                            1.19-3.1-.12-.29-.52-1.47.11-3.06 0 0 .97-.31 3.18 1.18a11.1 11.1 0 0 1
+                            5.79 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.77.11 3.06.74.81 1.19
+                            1.84 1.19 3.1 0 4.42-2.69 5.4-5.25 5.69.41.35.77 1.04.77 2.1 0 1.52-.01
+                            2.75-.01 3.12 0 .31.21.67.8.56A10.51 10.51 0 0 0 23.5 12C23.5 5.65
+                            18.35.5 12 .5Z"/>
+                    </svg>
+                    <span>View on GitHub</span>
+                    <svg class="externalIcon" viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M14 3h7v7"/>
+                        <path d="M10 14 21 3"/>
+                        <path d="M21 13v7a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h7"/>
+                    </svg>
+                </a>
+            </div>
+        </section>
+        <canvas id="gameContainer"></canvas>
+        <section id="projectInfo">
+            <div class="projectHeader">
+                <span class="projectTag">PROJECT SUMMARY</span>
+                <h2>Snake <span>JS</span></h2>
+            </div>
+            <p class="projectDescription">
+                A classic Snake game built from scratch with vanilla JavaScript
+                and HTML Canvas. Simple gameplay with a modern interface.
+            </p>
+            <div class="techStack">
+                <span>JavaScript</span>
+                <span>Canvas</span>
+                <span>HTML</span>
+                <span>CSS</span>
+            </div>
+            <div class="projectFeatures">
+                <h3>Features</h3>
+                <ul>
+                    <li>Arrow & WASD controls</li>
+                    <li>Snake growth & food spawning</li>
+                    <li>Wall & self-collision</li>
+                    <li>Score & high score tracking</li>
+                    <li>Restart without refreshing</li>
+                </ul>
+            </div>
+            <div class="projectFooter">
+                <span>Version</span>
+                <strong>v0.3.1</strong>
+            </div>
+        </section>
+    </main>
+    <div id="gameOver" class="gameOver">GAME OVER!!!</div>
     <script type="module">
         import Game from "./src/game.js";
         document.addEventListener("DOMContentLoaded", async () => {
