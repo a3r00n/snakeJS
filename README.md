@@ -6,7 +6,7 @@ A classic Snake game built from scratch with vanilla JavaScript, HTML, and CSS.
 
 ## Preview
 
-![Snake JS Preview](./assets/preview-v0.3.0.png)
+![Snake JS Preview](./assets/preview-v0.3.1.png)
 
 ## Features
 
